@@ -13,7 +13,7 @@ class GamesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(named: "light")
         self.navigationController?.navigationBar.isHidden = false
         setupCollection()
         
@@ -33,7 +33,7 @@ class GamesViewController: UIViewController {
         layout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
-        
+        collection.backgroundColor = UIColor(named: "light")
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.delegate = self
         collection.dataSource = self

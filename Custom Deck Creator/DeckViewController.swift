@@ -13,20 +13,20 @@ class DeckViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "light")
         setup()
     }
     
     private lazy var cardView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = UIColor(named: "dark 50%")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var deckView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = UIColor(named: "dark 75%")
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -104,7 +104,7 @@ class DeckViewController: UIViewController {
     private lazy var buttomsStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.backgroundColor = .white
+        stack.backgroundColor = UIColor(named: "light")
         stack.alignment = .center
 //        stack.sizeToFit()
         stack.layer.opacity = 0.5
@@ -192,7 +192,7 @@ class DeckViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collection.backgroundColor = .white
+        collection.backgroundColor = UIColor(named: "light")
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.delegate = self
         collection.dataSource = self
