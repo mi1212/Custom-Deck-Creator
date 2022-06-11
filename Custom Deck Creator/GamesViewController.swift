@@ -9,16 +9,6 @@ import UIKit
 
 class GamesViewController: UIViewController {
 
-    static var customCornerRadius: CGFloat = 0
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "light")
-        self.navigationController?.navigationBar.isHidden = false
-        setupCollection()
-        
-    }
-    
     private var array: [Int] {
         var array = [Int]()
         for element in 0...1 {
@@ -26,7 +16,6 @@ class GamesViewController: UIViewController {
         }
         return array
     }
-    
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -44,12 +33,20 @@ class GamesViewController: UIViewController {
         return collection
     }()
     
+    static var customCornerRadius: CGFloat = 0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor(named: "light")
+        self.navigationController?.navigationBar.isHidden = false
+        setupCollection()
+        collectionView.reloadData()
+        
+    }
+    
     private func setupCollection() {
         view.addSubview(collectionView)
-        
-        
-        
-        
+
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),

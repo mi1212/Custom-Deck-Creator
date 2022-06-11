@@ -33,33 +33,32 @@ class DecksCollectionViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
         ])
         
-//        NSLayoutConstraint.activate([
-//            image.topAnchor.constraint(equalTo: imageView.topAnchor, constant: inset),
-//            image.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -inset),
-//            image.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: inset),
-//            image.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -inset),
-//        ])
+        //        NSLayoutConstraint.activate([
+        //            image.topAnchor.constraint(equalTo: imageView.topAnchor, constant: inset),
+        //            image.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -inset),
+        //            image.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: inset),
+        //            image.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -inset),
+        //        ])
     }
     
     
     
     //MARK: - UIView
     
-//    private lazy var imageView: UIView = {
-//        let outerView = UIView()
-//        outerView.clipsToBounds = true
-//        outerView.backgroundColor = UIColor(named: "dark 50%")
-//
-//        outerView.layer.shadowRadius = 5
-//        outerView.layer.shadowOpacity = 0.3
-//
-//        outerView.translatesAutoresizingMaskIntoConstraints = false
-//        return outerView
-//    }()
+    //    private lazy var imageView: UIView = {
+    //        let outerView = UIView()
+    //        outerView.clipsToBounds = true
+    //        outerView.backgroundColor = UIColor(named: "dark 50%")
+    //
+    //        outerView.layer.shadowRadius = 5
+    //        outerView.layer.shadowOpacity = 0.3
+    //
+    //        outerView.translatesAutoresizingMaskIntoConstraints = false
+    //        return outerView
+    //    }()
     
     private lazy var imageView: UIImageView = {
         let image = UIImageView()
-
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         image.backgroundColor = .white

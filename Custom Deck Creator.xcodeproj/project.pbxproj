@@ -12,6 +12,7 @@
 		FD0237332843BDF8009B60D7 /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0237322843BDF8009B60D7 /* GamesViewController.swift */; };
 		FD0237382843BDFC009B60D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD0237372843BDFC009B60D7 /* Assets.xcassets */; };
 		FD0237432843C32D009B60D7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0237422843C32D009B60D7 /* UIView+Extension.swift */; };
+		FD24FDAC2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24FDAB2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift */; };
 		FD6B3C0E284483F00043E0FD /* GamesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C0D284483F00043E0FD /* GamesCollectionViewCell.swift */; };
 		FD6B3C13284493A70043E0FD /* PlusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C12284493A70043E0FD /* PlusCollectionViewCell.swift */; };
 		FD6B3C172844A4680043E0FD /* NewCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C162844A4680043E0FD /* NewCardViewController.swift */; };
@@ -28,6 +29,7 @@
 		FD0237372843BDFC009B60D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FD02373C2843BDFC009B60D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FD0237422843C32D009B60D7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		FD24FDAB2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD6B3C0D284483F00043E0FD /* GamesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD6B3C12284493A70043E0FD /* PlusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD6B3C162844A4680043E0FD /* NewCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardViewController.swift; sourceTree = "<group>"; };
@@ -66,14 +68,15 @@
 		FD02372D2843BDF8009B60D7 /* Custom Deck Creator */ = {
 			isa = PBXGroup;
 			children = (
-				FD02372E2843BDF8009B60D7 /* AppDelegate.swift */,
-				FD0237302843BDF8009B60D7 /* SceneDelegate.swift */,
+				FD6B3C11284492020043E0FD /* GamesCells */,
+				FD6B3C1C2844D6E10043E0FD /* DecksCell */,
+				FD24FDAD2848DA5200EB2BA5 /* DeckCell */,
 				FD0237322843BDF8009B60D7 /* GamesViewController.swift */,
 				FD6B3C182844BF0F0043E0FD /* GameViewController.swift */,
 				FDD3A1112846150A009897C5 /* DeckViewController.swift */,
 				FD6B3C162844A4680043E0FD /* NewCardViewController.swift */,
-				FD6B3C1C2844D6E10043E0FD /* CellDecks */,
-				FD6B3C11284492020043E0FD /* CellsGames */,
+				FD02372E2843BDF8009B60D7 /* AppDelegate.swift */,
+				FD0237302843BDF8009B60D7 /* SceneDelegate.swift */,
 				FD0237422843C32D009B60D7 /* UIView+Extension.swift */,
 				FD0237372843BDFC009B60D7 /* Assets.xcassets */,
 				FD02373C2843BDFC009B60D7 /* Info.plist */,
@@ -81,21 +84,29 @@
 			path = "Custom Deck Creator";
 			sourceTree = "<group>";
 		};
-		FD6B3C11284492020043E0FD /* CellsGames */ = {
+		FD24FDAD2848DA5200EB2BA5 /* DeckCell */ = {
+			isa = PBXGroup;
+			children = (
+				FD24FDAB2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift */,
+			);
+			path = DeckCell;
+			sourceTree = "<group>";
+		};
+		FD6B3C11284492020043E0FD /* GamesCells */ = {
 			isa = PBXGroup;
 			children = (
 				FD6B3C0D284483F00043E0FD /* GamesCollectionViewCell.swift */,
 				FD6B3C12284493A70043E0FD /* PlusCollectionViewCell.swift */,
 			);
-			path = CellsGames;
+			path = GamesCells;
 			sourceTree = "<group>";
 		};
-		FD6B3C1C2844D6E10043E0FD /* CellDecks */ = {
+		FD6B3C1C2844D6E10043E0FD /* DecksCell */ = {
 			isa = PBXGroup;
 			children = (
 				FD6B3C1A2844D6D90043E0FD /* DecksCollectionViewCell.swift */,
 			);
-			path = CellDecks;
+			path = DecksCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +185,7 @@
 				FD0237432843C32D009B60D7 /* UIView+Extension.swift in Sources */,
 				FD6B3C172844A4680043E0FD /* NewCardViewController.swift in Sources */,
 				FD6B3C192844BF0F0043E0FD /* GameViewController.swift in Sources */,
+				FD24FDAC2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift in Sources */,
 				FD6B3C13284493A70043E0FD /* PlusCollectionViewCell.swift in Sources */,
 				FD6B3C1B2844D6D90043E0FD /* DecksCollectionViewCell.swift in Sources */,
 				FD0237312843BDF8009B60D7 /* SceneDelegate.swift in Sources */,
@@ -311,8 +323,8 @@
 				INFOPLIST_FILE = "Custom Deck Creator/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -323,7 +335,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -339,8 +351,8 @@
 				INFOPLIST_FILE = "Custom Deck Creator/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeRight UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationPortrait";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeRight;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -351,7 +363,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

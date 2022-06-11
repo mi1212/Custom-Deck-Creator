@@ -37,7 +37,6 @@ class GameViewController: UIViewController {
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.allowsSelection = true
         collection.isPrefetchingEnabled = true
-        
         collection.register(DecksCollectionViewCell.self, forCellWithReuseIdentifier: DecksCollectionViewCell.identifire)
         collection.register(PlusCollectionViewCell.self, forCellWithReuseIdentifier: PlusCollectionViewCell.identifire)
         return collection
@@ -118,6 +117,16 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
         } else {
             let cardVC = DeckViewController()
             cardVC.indexDeck = indexGame + String(indexPath.row)
+            
+            lazy var tempImage: UIImageView = {
+                let image = UIImageView()
+                image.translatesAutoresizingMaskIntoConstraints = false
+                image.clipsToBounds = true
+                image.contentMode = .scaleAspectFill
+                return image
+            }()
+            
+            cardVC.cardImageView.image = UIImage(named: "cover" + cardVC.indexDeck)
             print(cardVC.indexDeck)
             self.navigationController?.pushViewController(cardVC, animated: true)
         }
