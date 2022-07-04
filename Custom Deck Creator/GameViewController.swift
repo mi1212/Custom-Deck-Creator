@@ -111,6 +111,7 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("Выбрана ячейка: (\(indexPath.section), \(indexPath.row))")
+        
         if indexPath.row == (array.count) {
             let newgameVC = NewCardViewController()
             self.present(newgameVC, animated: true)
