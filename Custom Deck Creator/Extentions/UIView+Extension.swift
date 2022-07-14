@@ -11,4 +11,5 @@ extension UIView {
     static var identifire: String {
         return String(describing: self)
     }
+    
 }

@@ -9,18 +9,13 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    let name: String = ""
+    
     var indexGame: String = ""
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "light")
-        setupCollection()
-        
-    }
-    
+       
     private var array: [Int] {
         var array = [Int]()
-        for element in 0...1 {
+        for element in 0...10 {
             array.append(element)
         }
         return array
@@ -41,6 +36,14 @@ class GameViewController: UIViewController {
         collection.register(PlusCollectionViewCell.self, forCellWithReuseIdentifier: PlusCollectionViewCell.identifire)
         return collection
     }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor(named: "light")
+        
+        setupCollection()
+        setupNavigationBar(title: "Выбери что-то там еще")
+    }
 
     
     private func setupCollection() {
@@ -65,6 +68,10 @@ class GameViewController: UIViewController {
         cell.layer.shadowOpacity = 0.5
         cell.layer.masksToBounds = false
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationItem.title = ""
     }
     
 
@@ -136,10 +143,11 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         inset
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         inset
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }

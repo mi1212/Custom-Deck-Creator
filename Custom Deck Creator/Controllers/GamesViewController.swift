@@ -11,7 +11,7 @@ class GamesViewController: UIViewController {
 
     private var array: [Int] {
         var array = [Int]()
-        for element in 0...1 {
+        for element in 0...6 {
             array.append(element)
         }
         return array
@@ -27,7 +27,8 @@ class GamesViewController: UIViewController {
         collection.delegate = self
         collection.dataSource = self
         collection.allowsSelection = true
-        collection.isPrefetchingEnabled = true
+        collection.clipsToBounds = true
+//        collection.isPrefetchingEnabled = true
         collection.register(GamesCollectionViewCell.self, forCellWithReuseIdentifier: GamesCollectionViewCell.identifire)
         collection.register(PlusCollectionViewCell.self, forCellWithReuseIdentifier: PlusCollectionViewCell.identifire)
         return collection
@@ -38,10 +39,18 @@ class GamesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(named: "light")
-        self.navigationController?.navigationBar.isHidden = false
         setupCollection()
         collectionView.reloadData()
+        setupNavigationBar(title: "Выбери игру")
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationItem.title = ""
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.title = "Выбери игру"
     }
     
     private func setupCollection() {
@@ -56,7 +65,7 @@ class GamesViewController: UIViewController {
     }
     
     func setupCornerAndShadowOfCell(_ collectionView: UICollectionView, _ cell: UICollectionViewCell ) {
-        GamesViewController.customCornerRadius = (collectionView.bounds.width) / 65
+        GamesViewController.customCornerRadius = (collectionView.bounds.width) / 60
         
         cell.contentView.layer.cornerRadius = GamesViewController.customCornerRadius
         cell.contentView.layer.masksToBounds = true
@@ -122,9 +131,18 @@ extension GamesViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: width)
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        inset
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        inset
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
     
 }
+
