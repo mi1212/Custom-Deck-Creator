@@ -23,6 +23,7 @@
 		FD6B3C172844A4680043E0FD /* NewCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C162844A4680043E0FD /* NewCardViewController.swift */; };
 		FD6B3C192844BF0F0043E0FD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C182844BF0F0043E0FD /* GameViewController.swift */; };
 		FD6B3C1B2844D6D90043E0FD /* DecksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C1A2844D6D90043E0FD /* DecksCollectionViewCell.swift */; };
+		FDB7558B288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FDB75589288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld */; };
 		FDD3A1122846150A009897C5 /* DeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD3A1112846150A009897C5 /* DeckViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		FD6B3C162844A4680043E0FD /* NewCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardViewController.swift; sourceTree = "<group>"; };
 		FD6B3C182844BF0F0043E0FD /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		FD6B3C1A2844D6D90043E0FD /* DecksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksCollectionViewCell.swift; sourceTree = "<group>"; };
+		FDB7558A288315C500ED48A2 /* Custom Deck Creator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Custom Deck Creator.xcdatamodel"; sourceTree = "<group>"; };
 		FDD3A1112846150A009897C5 /* DeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,15 +83,32 @@
 				FD4F57FE28802A73003423DA /* Extentions */,
 				FD4F57FF28802AB1003423DA /* Cells */,
 				FD4F580028802AC8003423DA /* Controllers */,
-				FD02372E2843BDF8009B60D7 /* AppDelegate.swift */,
-				FD0237302843BDF8009B60D7 /* SceneDelegate.swift */,
+				FD18A1572881767E0099693D /* Models */,
+				FD18A158288176940099693D /* Application */,
 				FD0237372843BDFC009B60D7 /* Assets.xcassets */,
 				FD02373C2843BDFC009B60D7 /* Info.plist */,
+				FDB75589288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld */,
+			);
+			path = "Custom Deck Creator";
+			sourceTree = "<group>";
+		};
+		FD18A1572881767E0099693D /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				FD31E37C287C4BD4005D4F84 /* DeckButtoms.swift */,
 				FD4F57FA2880268E003423DA /* Game.swift */,
 				FD4F57FC288028A7003423DA /* Card.swift */,
 			);
-			path = "Custom Deck Creator";
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FD18A158288176940099693D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				FD02372E2843BDF8009B60D7 /* AppDelegate.swift */,
+				FD0237302843BDF8009B60D7 /* SceneDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 		FD4F57FE28802A73003423DA /* Extentions */ = {
@@ -193,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDB7558B288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld in Sources */,
 				FD31E37B287C3A1F005D4F84 /* UIViewController+Extension.swift in Sources */,
 				FD6B3C0E284483F00043E0FD /* GamesCollectionViewCell.swift in Sources */,
 				FD0237332843BDF8009B60D7 /* GamesViewController.swift in Sources */,
@@ -411,6 +431,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FDB75589288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FDB7558A288315C500ED48A2 /* Custom Deck Creator.xcdatamodel */,
+			);
+			currentVersion = FDB7558A288315C500ED48A2 /* Custom Deck Creator.xcdatamodel */;
+			path = Custom_Deck_Creator.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FD0237232843BDF7009B60D7 /* Project object */;
 }

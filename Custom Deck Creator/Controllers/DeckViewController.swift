@@ -63,7 +63,6 @@ class DeckViewController: UIViewController {
     lazy var cardImageView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-//        image.layer.cornerRadius = GamesViewController.customCornerRadius
         image.layer.masksToBounds = true
         return image
     }()
@@ -95,7 +94,7 @@ class DeckViewController: UIViewController {
         
         let viewsArray = [deckCardsCollectionView, imageView, buttomsCollectionView, handCardsCollectionView, cardImageView]
         
-        viewsArray.map{$0.layer.cornerRadius = GamesViewController.customCornerRadius}
+        let _: [()] = viewsArray.map{$0.layer.cornerRadius = GamesViewController.customCornerRadius}
         
         
         NSLayoutConstraint.activate([
@@ -250,13 +249,11 @@ extension DeckViewController: UICollectionViewDataSource {
                     cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                     cell.isPressed.toggle()
                     selectedCard = nil
-                    print(selectedCard)
                 case false:
                     cell.layer.opacity = 0.8
                     cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                     cell.isPressed.toggle()
                     selectedCard = indexPath
-                    print(selectedCard)
                     
                 }
             } else  {
@@ -271,19 +268,27 @@ extension DeckViewController: UICollectionViewDataSource {
                     cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                     cell.isPressed.toggle()
                     selectedCard = nil
-                    print(selectedCard)
                 case false:
                     cell.layer.opacity = 0.8
                     cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                     cell.isPressed.toggle()
                     selectedCard = indexPath
-                    print(selectedCard)
                 }
             } else  {
                 return
             }
         case buttomsCollectionView:
+            
+            
+
+            
             let cell = buttomsCollectionView.cellForItem(at: indexPath) as! ButtomCollectionViewCell
+            
+            UIView.animate(withDuration: 0.08, delay: 0, options: .autoreverse) {
+                cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            } completion: { _ in
+                cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+            }
             
             switch cell.titleView.text {
             case "Взять":
