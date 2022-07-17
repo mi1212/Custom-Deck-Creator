@@ -8,6 +8,9 @@
 import UIKit
 
 struct Card {
-    let nameOfImage: String?
-    var isPressed: Bool = false
+    let id: Int                         // порядковый номер в массиве карт
+    let nameOfImage: String             // имя картинки
+    var isPressed: Bool = false         // карта выбрана(т.е. нажата)
+    var isFlipedOver: Bool = false      // карта перевернута
+    var isPined: Bool = true            // карта зафиксирована
 }

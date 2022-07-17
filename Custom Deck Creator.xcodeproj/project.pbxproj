@@ -15,6 +15,8 @@
 		FD24FDAC2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24FDAB2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift */; };
 		FD31E37B287C3A1F005D4F84 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD31E37A287C3A1F005D4F84 /* UIViewController+Extension.swift */; };
 		FD31E37D287C4BD4005D4F84 /* DeckButtoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD31E37C287C4BD4005D4F84 /* DeckButtoms.swift */; };
+		FD4ADA4C28831CBC00F1BB2E /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4ADA4B28831CBC00F1BB2E /* Games.swift */; };
+		FD4ADA4E28831FB600F1BB2E /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4ADA4D28831FB600F1BB2E /* Deck.swift */; };
 		FD4F57FB2880268F003423DA /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4F57FA2880268E003423DA /* Game.swift */; };
 		FD4F57FD288028A7003423DA /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4F57FC288028A7003423DA /* Card.swift */; };
 		FD4F580228803481003423DA /* ButtomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4F580128803481003423DA /* ButtomCollectionViewCell.swift */; };
@@ -22,7 +24,7 @@
 		FD6B3C13284493A70043E0FD /* PlusCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C12284493A70043E0FD /* PlusCollectionViewCell.swift */; };
 		FD6B3C172844A4680043E0FD /* NewCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C162844A4680043E0FD /* NewCardViewController.swift */; };
 		FD6B3C192844BF0F0043E0FD /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C182844BF0F0043E0FD /* GameViewController.swift */; };
-		FD6B3C1B2844D6D90043E0FD /* DecksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C1A2844D6D90043E0FD /* DecksCollectionViewCell.swift */; };
+		FD6B3C1B2844D6D90043E0FD /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD6B3C1A2844D6D90043E0FD /* GameCollectionViewCell.swift */; };
 		FDB7558B288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FDB75589288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld */; };
 		FDD3A1122846150A009897C5 /* DeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD3A1112846150A009897C5 /* DeckViewController.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +40,8 @@
 		FD24FDAB2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD31E37A287C3A1F005D4F84 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		FD31E37C287C4BD4005D4F84 /* DeckButtoms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckButtoms.swift; sourceTree = "<group>"; };
+		FD4ADA4B28831CBC00F1BB2E /* Games.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
+		FD4ADA4D28831FB600F1BB2E /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		FD4F57FA2880268E003423DA /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		FD4F57FC288028A7003423DA /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		FD4F580128803481003423DA /* ButtomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ButtomCollectionViewCell.swift; path = "Custom Deck Creator/Cells/ButtomCollectionViewCell.swift"; sourceTree = SOURCE_ROOT; };
@@ -45,7 +49,7 @@
 		FD6B3C12284493A70043E0FD /* PlusCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD6B3C162844A4680043E0FD /* NewCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardViewController.swift; sourceTree = "<group>"; };
 		FD6B3C182844BF0F0043E0FD /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		FD6B3C1A2844D6D90043E0FD /* DecksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecksCollectionViewCell.swift; sourceTree = "<group>"; };
+		FD6B3C1A2844D6D90043E0FD /* GameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewCell.swift; sourceTree = "<group>"; };
 		FDB7558A288315C500ED48A2 /* Custom Deck Creator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Custom Deck Creator.xcdatamodel"; sourceTree = "<group>"; };
 		FDD3A1112846150A009897C5 /* DeckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +92,7 @@
 				FD0237372843BDFC009B60D7 /* Assets.xcassets */,
 				FD02373C2843BDFC009B60D7 /* Info.plist */,
 				FDB75589288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld */,
+				FD4ADA4B28831CBC00F1BB2E /* Games.swift */,
 			);
 			path = "Custom Deck Creator";
 			sourceTree = "<group>";
@@ -95,9 +100,10 @@
 		FD18A1572881767E0099693D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FD31E37C287C4BD4005D4F84 /* DeckButtoms.swift */,
 				FD4F57FA2880268E003423DA /* Game.swift */,
+				FD4ADA4D28831FB600F1BB2E /* Deck.swift */,
 				FD4F57FC288028A7003423DA /* Card.swift */,
+				FD31E37C287C4BD4005D4F84 /* DeckButtoms.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -124,7 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				FD6B3C0D284483F00043E0FD /* GamesCollectionViewCell.swift */,
-				FD6B3C1A2844D6D90043E0FD /* DecksCollectionViewCell.swift */,
+				FD6B3C1A2844D6D90043E0FD /* GameCollectionViewCell.swift */,
 				FD24FDAB2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift */,
 				FD4F580128803481003423DA /* ButtomCollectionViewCell.swift */,
 				FD6B3C12284493A70043E0FD /* PlusCollectionViewCell.swift */,
@@ -215,6 +221,7 @@
 				FDB7558B288315C500ED48A2 /* Custom_Deck_Creator.xcdatamodeld in Sources */,
 				FD31E37B287C3A1F005D4F84 /* UIViewController+Extension.swift in Sources */,
 				FD6B3C0E284483F00043E0FD /* GamesCollectionViewCell.swift in Sources */,
+				FD4ADA4C28831CBC00F1BB2E /* Games.swift in Sources */,
 				FD0237332843BDF8009B60D7 /* GamesViewController.swift in Sources */,
 				FD02372F2843BDF8009B60D7 /* AppDelegate.swift in Sources */,
 				FDD3A1122846150A009897C5 /* DeckViewController.swift in Sources */,
@@ -222,11 +229,12 @@
 				FD0237432843C32D009B60D7 /* UIView+Extension.swift in Sources */,
 				FD4F57FD288028A7003423DA /* Card.swift in Sources */,
 				FD6B3C172844A4680043E0FD /* NewCardViewController.swift in Sources */,
+				FD4ADA4E28831FB600F1BB2E /* Deck.swift in Sources */,
 				FD6B3C192844BF0F0043E0FD /* GameViewController.swift in Sources */,
 				FD24FDAC2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift in Sources */,
 				FD4F580228803481003423DA /* ButtomCollectionViewCell.swift in Sources */,
 				FD6B3C13284493A70043E0FD /* PlusCollectionViewCell.swift in Sources */,
-				FD6B3C1B2844D6D90043E0FD /* DecksCollectionViewCell.swift in Sources */,
+				FD6B3C1B2844D6D90043E0FD /* GameCollectionViewCell.swift in Sources */,
 				FD4F57FB2880268F003423DA /* Game.swift in Sources */,
 				FD0237312843BDF8009B60D7 /* SceneDelegate.swift in Sources */,
 			);

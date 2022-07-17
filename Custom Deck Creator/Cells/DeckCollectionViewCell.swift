@@ -8,17 +8,30 @@
 import UIKit
 
 class DeckCollectionViewCell: UICollectionViewCell {
-        
-    private var indexRow = ""
-    private var indexDeck = ""
-    private var cardIsInverted = false
-    var isPressed = false
     
-    private lazy var imageView: UIImageView = {
+    let deck = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!]
+    
+    //MARK: - UIView
+    
+    lazy var imageView: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = false
         image.layer.cornerRadius = GamesViewController.customCornerRadius*2
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
+    lazy var holdImageView: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .center
+        image.backgroundColor = .white
+        image.image = UIImage(systemName: "pin")
+        image.layer.opacity = 0
+        image.tintColor = .black
+        image.transform = CGAffineTransform(rotationAngle: 45)
+        image.clipsToBounds = true
+        image.layer.cornerRadius = GamesViewController.customCornerRadius
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -37,6 +50,14 @@ class DeckCollectionViewCell: UICollectionViewCell {
     
     private func layout() {
         contentView.addSubview(imageView)
+        contentView.addSubview(holdImageView)
+        
+        NSLayoutConstraint.activate([
+            holdImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: GamesViewController.customCornerRadius/2),
+            holdImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -GamesViewController.customCornerRadius/2),
+            holdImageView.heightAnchor.constraint(equalToConstant: self.layer.bounds.height/5),
+            holdImageView.widthAnchor.constraint(equalTo: holdImageView.heightAnchor)
+        ])
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -45,15 +66,31 @@ class DeckCollectionViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
-    
-    
-    
-    //MARK: - UIView
-    
-    func setupCell(name: String, index: Int, indexDeck: String) {
-        imageView.image = UIImage(named: name)
-        self.indexRow = String(index)
-        self.indexDeck = indexDeck
+
+    func setupCell(indexOfCardImage: Int) {
+let card = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfCardImage]
+        
+        switch card.isFlipedOver {
+        case false:
+            imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover)
+        case true:
+            imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfCardImage].nameOfImage)
+        }
+        
+        if card.isPressed {
+            self.layer.opacity = 0.8
+            self.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        } else {
+            self.layer.opacity = 1
+            self.transform = CGAffineTransform(scaleX: 1, y: 1)
+        }
+        
+        if card.isPined {
+            self.holdImageView.layer.opacity = 0.7
+        } else {
+            self.holdImageView.layer.opacity = 0
+        }
+ 
     }
     
 }

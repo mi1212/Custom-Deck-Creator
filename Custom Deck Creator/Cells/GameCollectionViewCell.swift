@@ -7,8 +7,18 @@
 
 import UIKit
 
-class DecksCollectionViewCell: UICollectionViewCell {
+class GameCollectionViewCell: UICollectionViewCell {
     
+    //MARK: - UIView
+    
+    private lazy var imageView: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.backgroundColor = UIColor(named: "light")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -33,22 +43,8 @@ class DecksCollectionViewCell: UICollectionViewCell {
 
     }
     
-    
-    
-    //MARK: - UIView
-    
-    private lazy var imageView: UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleAspectFill
-        image.backgroundColor = UIColor(named: "light")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
-    
-    
-    func setupCell(name: String, index: Int) {
-        imageView.image = UIImage(named: name)
+    func setupCell(indexOfDeckImage: Int) {
+        imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[indexOfDeckImage].cover)
     }
     
 }

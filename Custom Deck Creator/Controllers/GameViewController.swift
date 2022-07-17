@@ -9,17 +9,7 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    let name: String = ""
-    
-    var indexGame: String = ""
-       
-    private var array: [Int] {
-        var array = [Int]()
-        for element in 0...10 {
-            array.append(element)
-        }
-        return array
-    }
+    static var indexOfGame: Int?
     
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,7 +22,7 @@ class GameViewController: UIViewController {
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.allowsSelection = true
         collection.isPrefetchingEnabled = true
-        collection.register(DecksCollectionViewCell.self, forCellWithReuseIdentifier: DecksCollectionViewCell.identifire)
+        collection.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.identifire)
         collection.register(PlusCollectionViewCell.self, forCellWithReuseIdentifier: PlusCollectionViewCell.identifire)
         return collection
     }()
@@ -42,7 +32,15 @@ class GameViewController: UIViewController {
         self.view.backgroundColor = UIColor(named: "light")
         
         setupCollection()
-        setupNavigationBar(title: "Выбери что-то там еще")
+        setupNavigationBar(title: gamesArray[GameViewController.indexOfGame!].name)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBar(title: gamesArray[GameViewController.indexOfGame!].name)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationItem.title = ""
     }
 
     
@@ -70,10 +68,6 @@ class GameViewController: UIViewController {
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationItem.title = ""
-    }
-    
 
 }
 
@@ -81,25 +75,33 @@ class GameViewController: UIViewController {
 
 extension GameViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        array.count + 1
+        gamesArray[GameViewController.indexOfGame!].decksArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch indexPath.row {
-        case 0...array.count - 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DecksCollectionViewCell.identifire, for: indexPath) as! DecksCollectionViewCell
-            cell.setupCell(name: "cover" + String(indexGame) + String(indexPath.row), index: indexPath.row)
-            
-            setupCornerAndShadowOfCell(collectionView, cell)
-            
-            return cell
-        default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlusCollectionViewCell.identifire, for: indexPath) as! PlusCollectionViewCell
-            cell.layer.cornerRadius = (collectionView.bounds.width - inset * 6 ) / 50
-            cell.clipsToBounds = true
-            return cell
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GameCollectionViewCell.identifire, for: indexPath) as! GameCollectionViewCell
+        cell.setupCell(indexOfDeckImage: indexPath.row)
+        
+        setupCornerAndShadowOfCell(collectionView, cell)
+        
+        return cell
+        
+        
+//        switch indexPath.row {
+//        case 0...array.count - 1:
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DecksCollectionViewCell.identifire, for: indexPath) as! DecksCollectionViewCell
+//            cell.setupCell(index: indexPath.row)
+//
+//            setupCornerAndShadowOfCell(collectionView, cell)
+//
+//            return cell
+//        default:
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlusCollectionViewCell.identifire, for: indexPath) as! PlusCollectionViewCell
+//            cell.layer.cornerRadius = (collectionView.bounds.width - inset * 6 ) / 50
+//            cell.clipsToBounds = true
+//            return cell
+//        }
     }
     
     
@@ -117,27 +119,15 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Выбрана ячейка: (\(indexPath.section), \(indexPath.row))")
         
-        if indexPath.row == (array.count) {
-            let newgameVC = NewCardViewController()
-            self.present(newgameVC, animated: true)
-        } else {
-            let cardVC = DeckViewController()
-            cardVC.indexDeck = indexGame + String(indexPath.row)
-            
-            lazy var tempImage: UIImageView = {
-                let image = UIImageView()
-                image.translatesAutoresizingMaskIntoConstraints = false
-                image.clipsToBounds = true
-                image.contentMode = .scaleAspectFill
-                return image
-            }()
-            
-            cardVC.cardImageView.image = UIImage(named: "cover" + cardVC.indexDeck)
-            print(cardVC.indexDeck)
+        DeckViewController.indexOfDeck = indexPath.row
+        
+        let cardVC = DeckViewController()
+        
+        
+        print("DeckViewController.indexOfDeck \(DeckViewController.indexOfDeck)")
             self.navigationController?.pushViewController(cardVC, animated: true)
-        }
+
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

@@ -8,6 +8,9 @@
 import UIKit
 
 class GamesCollectionViewCell: UICollectionViewCell {
+    
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
@@ -22,18 +25,13 @@ class GamesCollectionViewCell: UICollectionViewCell {
     
     private func layout() {
         contentView.addSubview(imageView)
-        
         self.layer.borderColor = UIColor.darkGray.cgColor
-//        self.layer.borderWidth = 10
-//        self.layer.opacity = 0.1
-        
-        let inset: CGFloat = 0
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
     
@@ -52,10 +50,8 @@ class GamesCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    func setupCell(name: String, width: CGFloat, index: Int) {
-        imageView.image = UIImage(named: name)
-        self.layer.cornerRadius = 100
-        self.layer.masksToBounds = true
+    func setupCell(indexOfGameImage: Int) {
+        imageView.image = UIImage(named: gamesArray[indexOfGameImage].cover)
     }
     
 }

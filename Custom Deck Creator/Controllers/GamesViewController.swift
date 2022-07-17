@@ -28,7 +28,6 @@ class GamesViewController: UIViewController {
         collection.dataSource = self
         collection.allowsSelection = true
         collection.clipsToBounds = true
-//        collection.isPrefetchingEnabled = true
         collection.register(GamesCollectionViewCell.self, forCellWithReuseIdentifier: GamesCollectionViewCell.identifire)
         collection.register(PlusCollectionViewCell.self, forCellWithReuseIdentifier: PlusCollectionViewCell.identifire)
         return collection
@@ -40,22 +39,20 @@ class GamesViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(named: "light")
         setupCollection()
-        collectionView.reloadData()
-        setupNavigationBar(title: "Выбери игру")
-        
+        setupNavigationBar(title: "Выберите игру")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBar(title: "Выберите игру")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         navigationItem.title = ""
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = "Выбери игру"
-    }
-    
     private func setupCollection() {
         view.addSubview(collectionView)
-
+        
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -85,39 +82,61 @@ class GamesViewController: UIViewController {
 
 extension GamesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        array.count + 1
+        return gamesArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch indexPath.row {
-        case 0...array.count - 1:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GamesCollectionViewCell.identifire, for: indexPath) as! GamesCollectionViewCell
-            cell.setupCell(name: "cover" + String(indexPath.row), width: (collectionView.bounds.width - inset * 5 ) / 4, index: indexPath.row)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GamesCollectionViewCell.identifire, for: indexPath) as! GamesCollectionViewCell
+        cell.setupCell(indexOfGameImage: indexPath.row)
         
-            setupCornerAndShadowOfCell(collectionView, cell)
-            
-            return cell
-        default:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlusCollectionViewCell.identifire, for: indexPath) as! PlusCollectionViewCell
-            cell.layer.cornerRadius = (collectionView.bounds.width - inset * 5 ) / 40
-            cell.clipsToBounds = true
-            return cell
-        }
+        setupCornerAndShadowOfCell(collectionView, cell)
+        return cell
         
+//        switch indexPath.row {
+//        case 0...array.count - 1:
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GamesCollectionViewCell.identifire, for: indexPath) as! GamesCollectionViewCell
+//            cell.setupCell(name: "cover" + String(indexPath.row), width: (collectionView.bounds.width - inset * 5 ) / 4, index: indexPath.row)
+//
+//            setupCornerAndShadowOfCell(collectionView, cell)
+//
+//            return cell
+//        default:
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlusCollectionViewCell.identifire, for: indexPath) as! PlusCollectionViewCell
+//            cell.layer.cornerRadius = (collectionView.bounds.width - inset * 5 ) / 40
+//            cell.clipsToBounds = true
+//            return cell
+//        }
         
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if indexPath.row == (array.count) {
-            let newgameVC = NewCardViewController()
-            self.present(newgameVC, animated: true)
-        } else {        
-            let deckdVC = GameViewController()
-            deckdVC.indexGame = String(indexPath.row)
-            self.navigationController?.pushViewController(deckdVC, animated: true)
-        }   
+        let cell = collectionView.cellForItem(at: indexPath) as! GamesCollectionViewCell
+        let deckdVC = GameViewController()
+        
+        GameViewController.indexOfGame = indexPath.row
+        
+        UIView.animate(withDuration: 0.08, delay: 0, options: .allowAnimatedContent ) {
+            cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+            
+        }
+        self.navigationController?.pushViewController(deckdVC, animated: true)
+        
+        
+        
+        
+        
+        
+//        if indexPath.row == (array.count) {
+//            let newgameVC = NewCardViewController()
+//            self.present(newgameVC, animated: true)
+//        } else {
+//            let deckdVC = GameViewController()
+//            deckdVC.indexGame = String(indexPath.row)
+//            self.navigationController?.pushViewController(deckdVC, animated: true)
+//        }
     }
 }
 

@@ -1,0 +1,40 @@
+//
+//  Games.swift
+//  Custom Deck Creator
+//
+//  Created by Mikhail Chuparnov on 16.07.2022.
+//
+
+import Foundation
+import UIKit
+
+var gamesArray = [nemesisGame]
+
+// Nemesis
+
+var nemesisGame = Game(id: 0, name: "Nemesis", cover: "Nemesis_cover", decksQty: nemesisGameDeckArray.count, decksArray: nemesisGameDeckArray)
+
+var draftDeck = Deck(id: 0, name: "Драфт персонажей", cover: "Draft_cover", cardsQty: draftCardsArray.count, cardsArray: draftCardsArray)
+var contactDeck = Deck(id: 1, name: "Контакт", cover: "Kontakt_cover", cardsQty: contactCardsArray.count, cardsArray: contactCardsArray)
+
+var nemesisGameDeckArray: [Deck] = [draftDeck, contactDeck]
+
+var draftCardsArray: [Card] = [
+    Card(id: 0, nameOfImage: "Draft"+"0", isPressed: false, isFlipedOver: false, isPined: false),
+    Card(id: 1, nameOfImage: "Draft"+"1", isPressed: false, isFlipedOver: false, isPined: false),
+    Card(id: 2, nameOfImage: "Draft"+"2", isPressed: false, isFlipedOver: false, isPined: false),
+    Card(id: 3, nameOfImage: "Draft"+"3", isPressed: false, isFlipedOver: false, isPined: false),
+    Card(id: 4, nameOfImage: "Draft"+"4", isPressed: false, isFlipedOver: false, isPined: false),
+    Card(id: 5, nameOfImage: "Draft"+"5", isPressed: false, isFlipedOver: false, isPined: false),
+    Card(id: 6, nameOfImage: "Draft"+"6", isPressed: false, isFlipedOver: false, isPined: false)
+]
+
+var contactCardsArray: [Card] = [
+    Card(id: 0, nameOfImage: "Kontakt"+"0"),
+    Card(id: 1, nameOfImage: "Kontakt"+"1"),
+    Card(id: 2, nameOfImage: "Kontakt"+"2"),
+    Card(id: 3, nameOfImage: "Kontakt"+"3"),
+    Card(id: 4, nameOfImage: "Kontakt"+"4"),
+]
+
+
