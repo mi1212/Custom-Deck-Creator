@@ -20,14 +20,16 @@ var contactDeck = Deck(id: 1, name: "Контакт", cover: "Kontakt_cover", ca
 var nemesisGameDeckArray: [Deck] = [draftDeck, contactDeck]
 
 var draftCardsArray: [Card] = [
-    Card(id: 0, nameOfImage: "Draft"+"0", isPressed: false, isFlipedOver: false, isPined: false),
-    Card(id: 1, nameOfImage: "Draft"+"1", isPressed: false, isFlipedOver: false, isPined: false),
-    Card(id: 2, nameOfImage: "Draft"+"2", isPressed: false, isFlipedOver: false, isPined: false),
-    Card(id: 3, nameOfImage: "Draft"+"3", isPressed: false, isFlipedOver: false, isPined: false),
-    Card(id: 4, nameOfImage: "Draft"+"4", isPressed: false, isFlipedOver: false, isPined: false),
-    Card(id: 5, nameOfImage: "Draft"+"5", isPressed: false, isFlipedOver: false, isPined: false),
-    Card(id: 6, nameOfImage: "Draft"+"6", isPressed: false, isFlipedOver: false, isPined: false)
+    Card(id: 0, nameOfImage: "Draft"+"0"),
+    Card(id: 1, nameOfImage: "Draft"+"1"),
+    Card(id: 2, nameOfImage: "Draft"+"2"),
+    Card(id: 3, nameOfImage: "Draft"+"3"),
+    Card(id: 4, nameOfImage: "Draft"+"4"),
+    Card(id: 5, nameOfImage: "Draft"+"5"),
+    Card(id: 6, nameOfImage: "Draft"+"6")
 ]
+
+var draftCardsHandArray: [Card] = []
 
 var contactCardsArray: [Card] = [
     Card(id: 0, nameOfImage: "Kontakt"+"0"),
@@ -37,4 +39,5 @@ var contactCardsArray: [Card] = [
     Card(id: 4, nameOfImage: "Kontakt"+"4"),
 ]
 
+var contactCardsHandArray: [Card] = []
 

@@ -13,6 +13,6 @@ struct Deck {
     let cover: String                   // обложка
     let cardsQty: Int                   // количество карт
     var cardsArray: [Card]              // массив карт
-    
+    var handArray: [Card] = []          // пустой массив для карт на руке
     
 }

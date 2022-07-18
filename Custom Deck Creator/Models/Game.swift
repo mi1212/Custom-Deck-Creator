@@ -13,4 +13,5 @@ struct Game {
     let cover: String                   // картинка рубашки
     let decksQty: Int                   // количество колод
     var decksArray: [Deck]              // массив колод в игре
+    
 }

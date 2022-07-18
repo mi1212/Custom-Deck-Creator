@@ -12,5 +12,5 @@ struct Card {
     let nameOfImage: String             // имя картинки
     var isPressed: Bool = false         // карта выбрана(т.е. нажата)
     var isFlipedOver: Bool = false      // карта перевернута
-    var isPined: Bool = true            // карта зафиксирована
+    var isPined: Bool = false            // карта зафиксирована
 }

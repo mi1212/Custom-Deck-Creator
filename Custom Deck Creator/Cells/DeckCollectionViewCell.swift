@@ -93,4 +93,18 @@ let card = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewContro
  
     }
     
+    func setupHandCell(indexOfCardImage: Int) {
+        let card = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfCardImage]
+
+        imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfCardImage].nameOfImage)
+
+
+        if card.isPined {
+            self.holdImageView.layer.opacity = 0.7
+        } else {
+            self.holdImageView.layer.opacity = 0
+        }
+ 
+    }
+    
 }

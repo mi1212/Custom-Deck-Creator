@@ -125,7 +125,7 @@ extension GameViewController: UICollectionViewDelegateFlowLayout {
         let cardVC = DeckViewController()
         
         
-        print("DeckViewController.indexOfDeck \(DeckViewController.indexOfDeck)")
+//        print("DeckViewController.indexOfDeck \(DeckViewController.indexOfDeck)")
             self.navigationController?.pushViewController(cardVC, animated: true)
 
     }
