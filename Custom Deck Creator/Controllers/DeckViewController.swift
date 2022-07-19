@@ -531,8 +531,6 @@ extension DeckViewController: UICollectionViewDataSource {
                                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[index].isPressed.toggle()
                                 } completion: { _ in
                                     
-                                    
-                                    
                                     self.deckCardsCollectionView.reloadData()
                                     
                                     self.indexOfSelectedCard = nil
@@ -547,22 +545,21 @@ extension DeckViewController: UICollectionViewDataSource {
                             self.cardImageView.layer.opacity = 0
                         } completion: { _ in
                             UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                                cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                                cell.imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover)
                                 self.designeThenChooseDeckCard(0)
-                                
-                                
+                                cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                             } completion: { _ in
                                 UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
                                     cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                                     cell.layer.opacity = 1
                                     self.cardImageView.layer.opacity = 1
                                     self.cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover)
-                                    
                                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[index].isFlipedOver.toggle()
                                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[index].isPressed.toggle()
                                 } completion: { _ in
-                                    
+            
                                     self.deckCardsCollectionView.reloadData()
+                                    
                                     self.indexOfSelectedCard = nil
                                 }
                             }
