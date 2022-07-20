@@ -79,13 +79,11 @@ class DeckViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    // вырезает из первой вью для дизайна чтобы сделать скругление слева
-    private lazy var designeDeckCorenerLeftView: UIView = {
+    // вью для дизайна анимации при нажатии на карту из колоды(закрашивает грань между кнопками и колодой)
+    private lazy var designeDeckCornerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "light")
-        view.layer.opacity = 1
-        view.clipsToBounds = true
-        view.layer.cornerRadius = GamesViewController.customCornerRadius
+        view.backgroundColor = UIColor(named: "dark 50%")
+        view.layer.opacity = 0
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -135,44 +133,53 @@ class DeckViewController: UIViewController {
     
     private func setup() {
         self.view.addSubview(designeDeckView)
-        self.view.addSubview(designeDeckCorenerLeftView)
+        self.view.addSubview(designeDeckCornerView)
         self.view.addSubview(designeDeckCorenerRightView)
+        
         self.view.addSubview(designeHandView)
+        
+        self.view.addSubview(handCardsCollectionView)
         self.view.addSubview(deckCardsCollectionView)
         self.view.addSubview(imageView)
         imageView.addSubview(cardImageView)
         self.view.addSubview(buttomsCollectionView)
-        self.view.addSubview(handCardsCollectionView)
+        
+        
+        
         
         self.navigationItem.rightBarButtonItems = [addBarButtonItem]
         
         cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover)
         
-        let viewsArray = [deckCardsCollectionView, imageView, buttomsCollectionView, handCardsCollectionView, cardImageView]
+        let viewsArray = [deckCardsCollectionView, imageView, buttomsCollectionView, handCardsCollectionView, cardImageView, designeDeckView, designeHandView]
         
         let _: [()] = viewsArray.map{$0.layer.cornerRadius = GamesViewController.customCornerRadius}
         
         NSLayoutConstraint.activate([
-            designeDeckView.topAnchor.constraint(equalTo: buttomsCollectionView.topAnchor, constant: GamesViewController.customCornerRadius),
-            designeDeckView.leadingAnchor.constraint(equalTo: buttomsCollectionView.leadingAnchor, constant: -GamesViewController.customCornerRadius*2),
-            designeDeckView.trailingAnchor.constraint(equalTo: buttomsCollectionView.trailingAnchor, constant: GamesViewController.customCornerRadius*2),
-            designeDeckView.bottomAnchor.constraint(equalTo: deckCardsCollectionView.bottomAnchor),
-            
-            designeDeckCorenerLeftView.leadingAnchor.constraint(equalTo: cardImageView.leadingAnchor),
-            designeDeckCorenerLeftView.trailingAnchor.constraint(equalTo: buttomsCollectionView.leadingAnchor),
-            designeDeckCorenerLeftView.bottomAnchor.constraint(equalTo: deckCardsCollectionView.topAnchor),
-            designeDeckCorenerLeftView.topAnchor.constraint(equalTo: buttomsCollectionView.topAnchor),
-            
+            designeDeckView.topAnchor.constraint(equalTo: buttomsCollectionView.topAnchor),
+            designeDeckView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+            designeDeckView.trailingAnchor.constraint(equalTo: buttomsCollectionView.trailingAnchor),
+            designeDeckView.bottomAnchor.constraint(equalTo: deckCardsCollectionView.bottomAnchor, constant: -GamesViewController.customCornerRadius),
+        ])
+        
+        NSLayoutConstraint.activate([
+            designeDeckCornerView.topAnchor.constraint(equalTo: buttomsCollectionView.centerYAnchor),
+            designeDeckCornerView.leadingAnchor.constraint(equalTo: buttomsCollectionView.centerXAnchor),
+            designeDeckCornerView.trailingAnchor.constraint(equalTo: handCardsCollectionView.centerXAnchor),
+            designeDeckCornerView.bottomAnchor.constraint(equalTo: deckCardsCollectionView.centerYAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
             designeDeckCorenerRightView.topAnchor.constraint(equalTo: buttomsCollectionView.topAnchor),
             designeDeckCorenerRightView.leadingAnchor.constraint(equalTo: buttomsCollectionView.trailingAnchor),
             designeDeckCorenerRightView.trailingAnchor.constraint(equalTo: handCardsCollectionView.trailingAnchor),
-            designeDeckCorenerRightView.bottomAnchor.constraint(equalTo: deckCardsCollectionView.topAnchor),
+            designeDeckCorenerRightView.bottomAnchor.constraint(equalTo: deckCardsCollectionView.topAnchor)
         ])
         
         NSLayoutConstraint.activate([
             designeHandView.topAnchor.constraint(equalTo: buttomsCollectionView.topAnchor),
-            designeHandView.leadingAnchor.constraint(equalTo: buttomsCollectionView.leadingAnchor),
-            designeHandView.trailingAnchor.constraint(equalTo: handCardsCollectionView.trailingAnchor, constant: -GamesViewController.customCornerRadius),
+            designeHandView.leadingAnchor.constraint(equalTo: cardImageView.leadingAnchor),
+            designeHandView.trailingAnchor.constraint(equalTo: handCardsCollectionView.trailingAnchor),
             designeHandView.bottomAnchor.constraint(equalTo: buttomsCollectionView.bottomAnchor)
         ])
         
@@ -229,8 +236,10 @@ class DeckViewController: UIViewController {
     }
 
     private lazy var addBarButtonItem: UIBarButtonItem = {
-//        return UIBarButtonItem(barButtonSystemItem:  , target: self, action: #selector(addBarButtomTaped))
+
         return UIBarButtonItem(title: "Сброшенные карты", style: .plain, target: self, action: #selector(addBarButtomTaped))
+
+//        return UIBarButtonItem(customView: UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 20)))
     }()
     
     @objc private func addBarButtomTaped() {
@@ -243,19 +252,20 @@ class DeckViewController: UIViewController {
     func designeThenChooseDeckCard(_ opacity:  Float) {
         UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn) {
             self.designeDeckView.layer.opacity = opacity
+            self.designeDeckCornerView.layer.opacity = opacity
         }
     }
     
     func designeThenChooseHandCard(_ opacity:  Float) {
         UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn) {
             self.designeHandView.layer.opacity = opacity
+            
         }
     }
 }
 
 extension DeckViewController: UICollectionViewDataSource {
     
-        
     var numbersButtoms: CGFloat { CGFloat(CardButtoms.allCases.count)}
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -329,23 +339,16 @@ extension DeckViewController: UICollectionViewDataSource {
                     cell.layer.opacity = 0.8
                     cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                     self.designeThenChooseDeckCard(1)
-                    
-
                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isPressed.toggle()
                     if gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isFlipedOver {
-                        
                         cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].nameOfImage)
-                        
                     } else {
                         cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover )
                     }
-                    
                 case true:
                     cell.layer.opacity = 1
                     cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-                    
                     self.designeThenChooseDeckCard(0)
-                    
                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isPressed.toggle()
                     indexOfSelectedCard = nil
                 }
@@ -362,19 +365,26 @@ extension DeckViewController: UICollectionViewDataSource {
             
             if let cell = collectionView.cellForItem(at: indexPath) as? DeckCollectionViewCell {
                 //переключение состояния выбора ячейки
-                switch gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexPath.row].isPressed {
-                case true:
-                    cell.layer.opacity = 1
-                    cell.transform = CGAffineTransform(scaleX: 1, y: 1)
-                    self.designeThenChooseHandCard(0)
-                    indexOfSelectedCard = nil
-                    gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexPath.row].isPressed.toggle()
+                switch gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfSelectedCard!].isPressed {
                 case false:
                     cell.layer.opacity = 0.8
                     cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+                    
                     self.designeThenChooseHandCard(1)
                     
-                    gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexPath.row].isPressed.toggle()
+                    gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfSelectedCard!].isPressed.toggle()
+                    
+                    cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfSelectedCard!].nameOfImage)
+                    
+                case true:
+                    cell.layer.opacity = 1
+                    cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    
+                    self.designeThenChooseHandCard(0)
+                    
+                    gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfSelectedCard!].isPressed.toggle()
+                    
+                    indexOfSelectedCard = nil
                 }
             }
         
@@ -489,12 +499,8 @@ extension DeckViewController: UICollectionViewDataSource {
                             self.deckCardsCollectionView.reloadData()
                             self.indexOfSelectedCard = nil
                         }
-                        
                     }
-                    
                     }
-                    
-                    
                 }
   
             case "Перевернуть":
@@ -506,16 +512,16 @@ extension DeckViewController: UICollectionViewDataSource {
                     
                     switch gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[index].isFlipedOver {
                     case false:
-                        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut) {
                             cell.transform = CGAffineTransform(scaleX: 0.1, y: 0.9)
                             self.cardImageView.layer.opacity = 0
                         } completion: { _ in
-                            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut) {
                                 cell.imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[index].nameOfImage)
                                 self.designeThenChooseDeckCard(0)
                                 cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                             } completion: { _ in
-                                UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut) {
+                                UIView.animate(withDuration: 0.03, delay: 0, options: .curveEaseInOut) {
                                     cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                                     cell.layer.opacity = 1
                                     self.cardImageView.layer.opacity = 1
@@ -562,30 +568,55 @@ extension DeckViewController: UICollectionViewDataSource {
 
             case "Сбросить":
                 
-                let cell = deckCardsCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as! DeckCollectionViewCell
                 
-                let collectionView = deckCardsCollectionView
                 
-
+                let deckCollectionView = deckCardsCollectionView
+                
+                let handCollectionView = handCardsCollectionView
+                
                 if isSelectedCardInHand == false {
-                        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                            cell.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
-                            cell.layer.opacity = 0.2
-                            self.designeThenChooseDeckCard(0)
-                        } completion: { _ in
-                            collectionView.deleteItems(at: [IndexPath(row: self.indexOfSelectedCard!, section: 0)])
-                            gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.remove(at: index)
-                            self.qtyOfCardsInDeck = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.count
-                            
-                            collectionView.reloadData()
-                            self.cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover )
-                            self.indexOfSelectedCard = nil
-                            
-                        }
+                    
+                    let cell = deckCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as! DeckCollectionViewCell
+                    
+                    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                        cell.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+                        cell.layer.opacity = 0.2
+                        self.designeThenChooseDeckCard(0)
+                    } completion: { _ in
+                        cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+                        deckCollectionView.deleteItems(at: [IndexPath(row: self.indexOfSelectedCard!, section: 0)])
+                        var takedCard = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.remove(at: index)
+                        self.qtyOfCardsInDeck = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.count
+                        
+                        takedCard.isPressed = false
+                        gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].dischardCardArray.append(takedCard)
+                        
+                        self.cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover )
+                        deckCollectionView.reloadData()
+                        self.indexOfSelectedCard = nil
+                        
+                    }
                 } else {
-                    handCardsCollectionView.reloadData()
+                    
+                    let cell = handCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as! DeckCollectionViewCell
+                    
+                    UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                        cell.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+                        cell.layer.opacity = 0.2
+                        self.designeThenChooseHandCard(0)
+                    } completion: { _ in
+                        cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+                        handCollectionView.deleteItems(at: [IndexPath(row: self.indexOfSelectedCard!, section: 0)])
+                        var takedCard = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray.remove(at: index)
+                        self.qtyOfCardsInHand = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray.count
+                        
+                        takedCard.isPressed = false
+                        gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].dischardCardArray.append(takedCard)
+                        handCollectionView.reloadData()
+                        self.cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover )
+                        self.indexOfSelectedCard = nil
+                    }
                 }
-                
                 
                 
             case "Взять":
@@ -602,15 +633,18 @@ extension DeckViewController: UICollectionViewDataSource {
                             cell.layer.opacity = 0.2
                             self.designeThenChooseDeckCard(0)
                         } completion: { _ in
+                            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                             deckCollectionView.deleteItems(at: [IndexPath(row: self.indexOfSelectedCard!, section: 0)])
                             
                             var takedCard = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.remove(at: index)
                             
                             takedCard.isFlipedOver = true
                             takedCard.isPressed = false
+                            takedCard.isPined = false
+                            
                             gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray.append(takedCard)
                             
-                            handCollectionView.insertItems(at: [])
+//                            handCollectionView.insertItems(at: [])
                             
                             self.qtyOfCardsInDeck = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.count
                             self.qtyOfCardsInHand = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray.count
@@ -618,7 +652,6 @@ extension DeckViewController: UICollectionViewDataSource {
                             deckCollectionView.reloadData()
                             handCollectionView.reloadData()
                             self.indexOfSelectedCard = nil
-                            
                         }
                 }
 
@@ -638,19 +671,8 @@ extension DeckViewController: UICollectionViewDataSource {
         default:
             break
         }
-        
-
 
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, selectionFollowsFocusForItemAt indexPath: IndexPath) -> Bool {
-//        true
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-//        true
-//    }
-
 }
 
 extension DeckViewController: UICollectionViewDelegateFlowLayout {

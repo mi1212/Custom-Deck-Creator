@@ -14,5 +14,5 @@ struct Deck {
     let cardsQty: Int                   // количество карт
     var cardsArray: [Card]              // массив карт
     var handArray: [Card] = []          // пустой массив для карт на руке
-    
+    var dischardCardArray: [Card] = []  // пустой массив для сброшенных карт
 }

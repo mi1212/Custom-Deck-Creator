@@ -106,5 +106,22 @@ let card = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewContro
         }
  
     }
+    func setupDiscardCardCell(indexOfCardImage: Int) {
+        let card = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].dischardCardArray[indexOfCardImage]
+        
+        switch card.isFlipedOver {
+        case false:
+            imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover)
+        case true:
+            imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].dischardCardArray[indexOfCardImage].nameOfImage)
+        }
+
+        if card.isPined {
+            self.holdImageView.layer.opacity = 0.7
+        } else {
+            self.holdImageView.layer.opacity = 0
+        }
+ 
+    }
     
 }

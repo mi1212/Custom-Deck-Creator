@@ -9,8 +9,11 @@ import UIKit
 
 class DiscardCardsViewController: UIViewController{
     
-    var cellShadowOpacity: Float = 0.3
+    var cellShadowOpacity: Float = 0.6
     
+    let qtyOfCardsInDischard = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].dischardCardArray.count
+    
+    // вью сброшенных карт
     private lazy var discardCardsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -25,21 +28,45 @@ class DiscardCardsViewController: UIViewController{
         return collection
     }()
     
+    // кнопки управления
+    private lazy var buttomsCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.backgroundColor = UIColor(named: "dark 50%")
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.delegate = self
+        collection.dataSource = self
+        collection.clipsToBounds = false
+        
+        collection.layer.cornerRadius = GamesViewController.customCornerRadius
+        collection.register(ButtomCollectionViewCell.self, forCellWithReuseIdentifier: ButtomCollectionViewCell.identifire)
+        return collection
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "light")
         setup()
-        // Do any additional setup after loading the view.
+
     }
     
     private func setup() {
         self.view.addSubview(discardCardsCollectionView)
+        self.view.addSubview(buttomsCollectionView)
         
         NSLayoutConstraint.activate([
             discardCardsCollectionView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: inset),
             discardCardsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: inset),
             discardCardsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -inset),
-            discardCardsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -inset),
+            discardCardsCollectionView.bottomAnchor.constraint(equalTo: buttomsCollectionView.topAnchor, constant: -inset),
+        ])
+        
+        NSLayoutConstraint.activate([
+            buttomsCollectionView.heightAnchor.constraint(equalToConstant: self.view.bounds.height/9),
+            buttomsCollectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -inset),
+            buttomsCollectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: inset),
+            buttomsCollectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -inset),
         ])
     }
     
@@ -55,62 +82,99 @@ class DiscardCardsViewController: UIViewController{
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.layer.cornerRadius).cgPath
     }
     
-    
-    /*
+
      // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
+
+
     
 }
-
+    // MARK: - DataSource, Delegate
 extension DiscardCardsViewController: UICollectionViewDataSource {
     
     
     var numbersButtoms: CGFloat { CGFloat(CardButtoms.allCases.count)}
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        switch collectionView {
+        case discardCardsCollectionView:
+            return qtyOfCardsInDischard
+//            return 6
+        case buttomsCollectionView:
+            return CardButtoms.allCases.count
+            
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeckCollectionViewCell.identifire, for: indexPath) as! DeckCollectionViewCell
-        cell.backgroundColor = .black
+ 
         
-//        cell.setupCell(indexOfCardImage: indexPath.row)
-        setupCornerAndShadowOfCell(cell)
-        return cell
+        switch collectionView {
+        case discardCardsCollectionView:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeckCollectionViewCell.identifire, for: indexPath) as! DeckCollectionViewCell
+            cell.setupDiscardCardCell(indexOfCardImage: indexPath.row)
+            setupCornerAndShadowOfCell(cell)
+            return cell
+            
+        case buttomsCollectionView:
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtomCollectionViewCell.identifire, for: indexPath) as! ButtomCollectionViewCell
+        
+            setupCornerAndShadowOfCell(cell)
+            
+            for i in 0...CardButtoms.allCases.count-1 {
+
+                if i == indexPath.row {
+                    cell.titleView.text = CardButtoms.allCases[i].rawValue
+                }
+            }
+            
+            return cell
+        default:
+            return UICollectionViewCell()
         
         
     }
+    }
+
 }
-
-
 
 extension DiscardCardsViewController: UICollectionViewDelegateFlowLayout {
     
     private var inset: CGFloat { return 20 }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - inset * 5 ) / 4
-        return CGSize(width: width, height: width * 1.3)
+        
+        
+//        CGSize(width: 100, height: 30)
+        print("number of buttoms = \(numbersButtoms)")
+        switch collectionView {
+        case discardCardsCollectionView:
+            let width = (collectionView.bounds.width - inset * 5 ) / 4
+            return CGSize(width: width, height: width * 1.3)
+        case buttomsCollectionView:
+            let height = (buttomsCollectionView.bounds.height - inset * 2)
+            let width = (buttomsCollectionView.bounds.width - inset * (numbersButtoms + 1) ) / numbersButtoms
+            return CGSize(width: width, height: height)
+//            return CGSize(width: 100, height: 100)
+        default:
+            return CGSize(width: 100, height: 100)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         inset
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         inset
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: inset*2, left: inset, bottom: inset*2, right: inset)
+        UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
     }
     
 }
