@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class DeckViewController: UIViewController {
     
@@ -143,6 +144,7 @@ class DeckViewController: UIViewController {
         self.view.addSubview(buttomsCollectionView)
         self.view.addSubview(handCardsCollectionView)
         
+        self.navigationItem.rightBarButtonItems = [addBarButtonItem]
         
         cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover)
         
@@ -225,27 +227,18 @@ class DeckViewController: UIViewController {
         cell.layer.shadowOpacity = cellShadowOpacity
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.layer.cornerRadius).cgPath
     }
+
+    private lazy var addBarButtonItem: UIBarButtonItem = {
+//        return UIBarButtonItem(barButtonSystemItem:  , target: self, action: #selector(addBarButtomTaped))
+        return UIBarButtonItem(title: "Сброшенные карты", style: .plain, target: self, action: #selector(addBarButtomTaped))
+    }()
     
-//    func takeCard(collectionView: UICollectionView,indexPath: IndexPath) {
-//
-//        switch indexPath {
-//        case nil:
-//            break
-//        default:
-//            if collectionView == deckCardsCollectionView {
-//                collectionView.deleteItems(at: [indexPath])
-//                deckCardsCollectionView.reloadData()
-//                handCardsCollectionView.reloadData()
-//
-//            } else if collectionView == handCardsCollectionView {
-//                collectionView.deleteItems(at: [indexPath])
-//                deckCardsCollectionView.reloadData()
-//                handCardsCollectionView.reloadData()
-//            }
-//        }
-//
-//    }
-//}
+    @objc private func addBarButtomTaped() {
+        
+        let discardCardsVC = DiscardCardsViewController()
+//        self.navigationController?.pushViewController(discardCardsVC, animated: true)
+        self.navigationController?.present(discardCardsVC, animated: true)
+    }
 
     func designeThenChooseDeckCard(_ opacity:  Float) {
         UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseIn) {
@@ -484,7 +477,7 @@ extension DeckViewController: UICollectionViewDataSource {
                         
                     case true:
                         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                            cell.holdImageView.layer.opacity = 0.2
+                            cell.holdImageView.layer.opacity = 0
                             cell.holdImageView.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
                             cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                             cell.layer.opacity = 1
