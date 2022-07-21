@@ -19,8 +19,15 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIImageName</key>
+		<string>LaunchScreenIcon</string>
+		<key>UIColorName</key>
+		<string>blue</string>
+	</dict>
 	<key>UIStatusBarHidden~ipad</key>
-	<false/>
+	<true/>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleDarkContent</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>

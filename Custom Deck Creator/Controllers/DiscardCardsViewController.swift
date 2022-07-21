@@ -13,6 +13,9 @@ class DiscardCardsViewController: UIViewController{
     
     let qtyOfCardsInDischard = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].dischardCardArray.count
     
+    let qtyOfButtomsForDiscardCard = discardCardButtomsArray.count
+
+    
     // вью сброшенных карт
     private lazy var discardCardsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -44,11 +47,12 @@ class DiscardCardsViewController: UIViewController{
         return collection
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "light")
         setup()
-
+        
     }
     
     private func setup() {
@@ -82,34 +86,27 @@ class DiscardCardsViewController: UIViewController{
         cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.layer.cornerRadius).cgPath
     }
     
-
-     // MARK: - Navigation
-
-
     
+    // MARK: - Navigation
+
 }
-    // MARK: - DataSource, Delegate
+// MARK: - DataSource, Delegate
 extension DiscardCardsViewController: UICollectionViewDataSource {
     
-    
-    var numbersButtoms: CGFloat { CGFloat(CardButtoms.allCases.count)}
+    var numbersButtoms: CGFloat { CGFloat(discardCardButtomsArray.count)}
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch collectionView {
         case discardCardsCollectionView:
             return qtyOfCardsInDischard
-//            return 6
         case buttomsCollectionView:
-            return CardButtoms.allCases.count
-            
+            return qtyOfButtomsForDiscardCard
         default:
             return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
- 
         
         switch collectionView {
         case discardCardsCollectionView:
@@ -122,24 +119,21 @@ extension DiscardCardsViewController: UICollectionViewDataSource {
         case buttomsCollectionView:
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtomCollectionViewCell.identifire, for: indexPath) as! ButtomCollectionViewCell
-        
+            
             setupCornerAndShadowOfCell(cell)
             
-            for i in 0...CardButtoms.allCases.count-1 {
+            for i in 0...qtyOfButtomsForDiscardCard-1 {
+                    if i == indexPath.row {
+                        cell.titleView.text = discardCardButtomsArray[i].name
 
-                if i == indexPath.row {
-                    cell.titleView.text = CardButtoms.allCases[i].rawValue
+                    }
                 }
-            }
-            
             return cell
         default:
             return UICollectionViewCell()
-        
-        
+        }
     }
-    }
-
+    
 }
 
 extension DiscardCardsViewController: UICollectionViewDelegateFlowLayout {
@@ -147,10 +141,7 @@ extension DiscardCardsViewController: UICollectionViewDelegateFlowLayout {
     private var inset: CGFloat { return 20 }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        
-//        CGSize(width: 100, height: 30)
-        print("number of buttoms = \(numbersButtoms)")
+
         switch collectionView {
         case discardCardsCollectionView:
             let width = (collectionView.bounds.width - inset * 5 ) / 4
@@ -159,7 +150,7 @@ extension DiscardCardsViewController: UICollectionViewDelegateFlowLayout {
             let height = (buttomsCollectionView.bounds.height - inset * 2)
             let width = (buttomsCollectionView.bounds.width - inset * (numbersButtoms + 1) ) / numbersButtoms
             return CGSize(width: width, height: height)
-//            return CGSize(width: 100, height: 100)
+            //            return CGSize(width: 100, height: 100)
         default:
             return CGSize(width: 100, height: 100)
         }
@@ -168,7 +159,7 @@ extension DiscardCardsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         inset
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         inset
     }

@@ -14,7 +14,7 @@
 		FD0237432843C32D009B60D7 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD0237422843C32D009B60D7 /* UIView+Extension.swift */; };
 		FD24FDAC2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD24FDAB2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift */; };
 		FD31E37B287C3A1F005D4F84 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD31E37A287C3A1F005D4F84 /* UIViewController+Extension.swift */; };
-		FD31E37D287C4BD4005D4F84 /* DeckButtoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD31E37C287C4BD4005D4F84 /* DeckButtoms.swift */; };
+		FD31E37D287C4BD4005D4F84 /* CardButtoms.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD31E37C287C4BD4005D4F84 /* CardButtoms.swift */; };
 		FD4ADA4C28831CBC00F1BB2E /* Games.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4ADA4B28831CBC00F1BB2E /* Games.swift */; };
 		FD4ADA4E28831FB600F1BB2E /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4ADA4D28831FB600F1BB2E /* Deck.swift */; };
 		FD4F57FB2880268F003423DA /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4F57FA2880268E003423DA /* Game.swift */; };
@@ -40,7 +40,7 @@
 		FD0237422843C32D009B60D7 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		FD24FDAB2848DA4E00EB2BA5 /* DeckCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckCollectionViewCell.swift; sourceTree = "<group>"; };
 		FD31E37A287C3A1F005D4F84 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
-		FD31E37C287C4BD4005D4F84 /* DeckButtoms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckButtoms.swift; sourceTree = "<group>"; };
+		FD31E37C287C4BD4005D4F84 /* CardButtoms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardButtoms.swift; sourceTree = "<group>"; };
 		FD4ADA4B28831CBC00F1BB2E /* Games.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Games.swift; sourceTree = "<group>"; };
 		FD4ADA4D28831FB600F1BB2E /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		FD4F57FA2880268E003423DA /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 				FD4F57FA2880268E003423DA /* Game.swift */,
 				FD4ADA4D28831FB600F1BB2E /* Deck.swift */,
 				FD4F57FC288028A7003423DA /* Card.swift */,
-				FD31E37C287C4BD4005D4F84 /* DeckButtoms.swift */,
+				FD31E37C287C4BD4005D4F84 /* CardButtoms.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -229,7 +229,7 @@
 				FD0237332843BDF8009B60D7 /* GamesViewController.swift in Sources */,
 				FD02372F2843BDF8009B60D7 /* AppDelegate.swift in Sources */,
 				FDD3A1122846150A009897C5 /* DeckViewController.swift in Sources */,
-				FD31E37D287C4BD4005D4F84 /* DeckButtoms.swift in Sources */,
+				FD31E37D287C4BD4005D4F84 /* CardButtoms.swift in Sources */,
 				FD0237432843C32D009B60D7 /* UIView+Extension.swift in Sources */,
 				FD4F57FD288028A7003423DA /* Card.swift in Sources */,
 				FD6B3C172844A4680043E0FD /* NewCardViewController.swift in Sources */,
@@ -368,13 +368,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VXMM262X54;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Custom Deck Creator/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeLeft;
@@ -397,13 +397,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = VXMM262X54;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Custom Deck Creator/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationLandscapeLeft;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationLandscapeLeft;

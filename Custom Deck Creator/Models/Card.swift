@@ -14,3 +14,5 @@ struct Card {
     var isFlipedOver: Bool = false      // карта перевернута
     var isPined: Bool = false            // карта зафиксирована
 }
+
+

@@ -12,5 +12,6 @@ extension UIViewController {
         self.navigationItem.title = title
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "dark") as Any]
+        self.navigationController?.navigationBar.tintColor = UIColor(named: "dark")
     }
 }

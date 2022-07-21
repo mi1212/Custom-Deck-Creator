@@ -17,7 +17,7 @@ class ButtomCollectionViewCell: UICollectionViewCell {
         title.textColor = UIColor(named: "dark")
         title.font = UIFont.boldSystemFont(ofSize: 18)
         title.adjustsFontSizeToFitWidth = true
-        title.numberOfLines = 1
+        title.numberOfLines = 0
         title.textAlignment = .center
         return title
     }()
