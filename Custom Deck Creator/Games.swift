@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-var gamesArray = [nemesisGame]
+var gamesArray = [nemesisGame, sherlokPikasso]
 
 // Nemesis
 
@@ -41,3 +41,6 @@ var contactCardsArray: [Card] = [
 
 var contactCardsHandArray: [Card] = []
 
+// Another game
+
+var  sherlokPikasso = Game(id: 1, name: "Sherlok&Pikasso", cover: "Sherlok&Pikasso_cover", decksQty: 10, decksArray: [])

@@ -21,10 +21,12 @@
 	</dict>
 	<key>UILaunchScreen</key>
 	<dict>
+		<key>UIImageRespectsSafeAreaInsets</key>
+		<true/>
 		<key>UIImageName</key>
-		<string>LaunchScreenIcon</string>
+		<string>LaunchScreenIcon-1</string>
 		<key>UIColorName</key>
-		<string>blue</string>
+		<string>Black</string>
 	</dict>
 	<key>UIStatusBarHidden~ipad</key>
 	<true/>

@@ -14,6 +14,8 @@ class DeckViewController: UIViewController {
     
     // свойство чтобы понимать что карта выбрана(нажата) в руке(true) или в колоде(false)
     var isSelectedCardInHand: Bool = false
+    // свойство чтобы понимать что карта выбрана
+    var isCardChoosed: Bool = false
     // indexPath выбранной карты
     var indexOfSelectedCard: Int?
     
@@ -134,6 +136,7 @@ class DeckViewController: UIViewController {
     }
     
     private func setup() {
+//        self.view.addGestureRecognizer(tapToDeselectCard)
         self.view.addSubview(designeDeckView)
         self.view.addSubview(designeDeckCornerView)
         self.view.addSubview(designeDeckCorenerRightView)
@@ -145,6 +148,7 @@ class DeckViewController: UIViewController {
         self.view.addSubview(imageView)
         imageView.addSubview(cardImageView)
         self.view.addSubview(buttomsCollectionView)
+        
         
         
         
@@ -276,53 +280,75 @@ class DeckViewController: UIViewController {
         }
     }
     
-    private func setupButtomsAfterChooseCard(isSelectedCardInHand: Bool, isCardUnpressed: Bool) {
-        if !isCardUnpressed {
-            if !isSelectedCardInHand {
-                for i in 0...qtyOfButtomsForDeckCard - 1{
-                    for j in 0...handCardButtomsArray.count - 1 {
+    private func setupButtomsAfterChooseCard(isSelectedCardInHand: Bool, isCardChoosed: Bool) {
+
+        if !isSelectedCardInHand {
+            if !isCardChoosed {
+                for i in 0...deckButtomsArray.count - 1 {
+                    
+                    let cellButtom = buttomsCollectionView.cellForItem(at: IndexPath(row: i, section: 0)) as! ButtomCollectionViewCell
+                    cellButtom.layer.opacity = 0.8
+                    cellButtom.layer.shadowOpacity = 0
+                    cellButtom.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+                    
+                    for j in 0...deckCardButtomsArray.count - 1 {
                         
-                        let cell = buttomsCollectionView.cellForItem(at: IndexPath(row: i, section: 0)) as! ButtomCollectionViewCell
-                        
-                        if cell.titleView.text == handCardButtomsArray[j].name {
-                            cell.titleView.layer.opacity = 0
-                            cell.layer.shadowOpacity = 0
-                        } else {
-                            cell.titleView.layer.opacity = 1
-                            cell.layer.shadowOpacity = cellShadowOpacity*2
-//                            print(handCardButtomsArray[j].name)
+                        if cellButtom.titleView.text == deckCardButtomsArray[j].name  {
+                            
+                            cellButtom.layer.shadowOpacity = cellShadowOpacity*2
+                            cellButtom.transform = CGAffineTransform(scaleX: 1, y: 1)
+                            
                         }
                     }
                 }
             } else {
-                for i in 0...qtyOfButtomsForDeckCard - 1{
-                    for j in 0...deckCardButtomsArray.count - 1 {
+                for i in 0...deckButtomsArray.count - 1 {
+                    let cellButtom = buttomsCollectionView.cellForItem(at: IndexPath(row: i, section: 0)) as! ButtomCollectionViewCell
+                    cellButtom.layer.opacity = 1
+                    cellButtom.layer.shadowOpacity = cellShadowOpacity
+                    cellButtom.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
+                
+            }
+        } else {
+            if !isCardChoosed {
+                for i in 0...deckButtomsArray.count - 1 {
+                    
+                    let cellButtom = buttomsCollectionView.cellForItem(at: IndexPath(row: i, section: 0)) as! ButtomCollectionViewCell
+                    cellButtom.layer.opacity = 0.8
+                    cellButtom.layer.shadowOpacity = 0
+                    cellButtom.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+                    
+                    for j in 0...handCardButtomsArray.count - 1 {
                         
-                        let cell = buttomsCollectionView.cellForItem(at: IndexPath(row: i, section: 0)) as! ButtomCollectionViewCell
-                        
-                        if deckCardButtomsArray[j].name == cell.titleView.text  {
-                            cell.titleView.layer.opacity = 0
-                            cell.layer.shadowOpacity = 0
-                        } else {
-                            cell.titleView.layer.opacity = 1
-                            cell.layer.shadowOpacity = cellShadowOpacity*2
-//                            print(handCardButtomsArray[j].name)
+                        if cellButtom.titleView.text == handCardButtomsArray[j].name  {
+                            
+                            cellButtom.layer.shadowOpacity = cellShadowOpacity*2
+                            cellButtom.transform = CGAffineTransform(scaleX: 1, y: 1)
+                            
                         }
                     }
                 }
+            } else {
+                for i in 0...deckButtomsArray.count - 1 {
+                    let cellButtom = buttomsCollectionView.cellForItem(at: IndexPath(row: i, section: 0)) as! ButtomCollectionViewCell
+                    cellButtom.layer.opacity = 1
+                    cellButtom.layer.shadowOpacity = cellShadowOpacity
+                    cellButtom.transform = CGAffineTransform(scaleX: 1, y: 1)
+                }
                 
-                
-            }
-            
-        } else {
-            for i in 0...qtyOfButtomsForDeckCard - 1 {
-                
-                let cell = buttomsCollectionView.cellForItem(at: IndexPath(row: i, section: 0)) as! ButtomCollectionViewCell
-                cell.titleView.layer.opacity = 1
-                cell.layer.shadowOpacity = cellShadowOpacity
             }
         }
-        
+
+    }
+    
+    private lazy var tapToDeselectCard: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        return tap
+    }()
+    
+    @objc func dismissKeyboard() {
+        designeThenChooseHandCard(0)
     }
 }
 
@@ -374,6 +400,8 @@ extension DeckViewController: UICollectionViewDataSource {
         
             setupCornerAndShadowOfCell(collectionView, cell)
             
+            cell.titleView.numberOfLines = 0
+            
             for i in 0...qtyOfButtomsForDeckCard {
                 
                     if i == indexPath.row {
@@ -388,27 +416,40 @@ extension DeckViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+    
         switch collectionView {
         case deckCardsCollectionView:
+            //проверка что в колоде карта не зажата
+            if indexOfSelectedCard != nil && isSelectedCardInHand {
+                let cell = handCardsCollectionView.cellForItem(at: IndexPath(row: indexOfSelectedCard!, section: 0)) as! DeckCollectionViewCell
+                
+                cell.layer.opacity = 1
+                cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+                
+                self.designeThenChooseHandCard(0)
+                
+                gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfSelectedCard!].isPressed.toggle()
+                isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
+                indexOfSelectedCard = nil
+                
+            } 
             
             isSelectedCardInHand = false                // присваиваем статус карты не в руке
+
+            indexOfSelectedCard = indexPath.row         // присваиваем индекс выбранной ячейки
             
-            indexOfSelectedCard = indexPath.row         //   присваиваем индекс выбранной ячейки
-            
-            
+            setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
             
             if let cell = collectionView.cellForItem(at: indexPath) as? DeckCollectionViewCell {
-                
-                
                 
                 //переключение состояния выбора ячейки
                 switch gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isPressed {
                 case false:
                     cell.layer.opacity = 0.8
                     cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardUnpressed: false)
+                    isCardChoosed.toggle()                      // меняем статус "карта выбрана"
                     self.designeThenChooseDeckCard(1)
+                    self.designeThenChooseHandCard(0)
                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isPressed.toggle()
                     if gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isFlipedOver {
                         cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].nameOfImage)
@@ -419,7 +460,7 @@ extension DeckViewController: UICollectionViewDataSource {
                     cell.layer.opacity = 1
                     cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                     self.designeThenChooseDeckCard(0)
-                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardUnpressed: true)
+                    isCardChoosed.toggle()                      // меняем статус "карта выбрана"
                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isPressed.toggle()
                     indexOfSelectedCard = nil
                 }
@@ -429,11 +470,22 @@ extension DeckViewController: UICollectionViewDataSource {
             }
             
         case handCardsCollectionView:
+            //проверка что в руке карта не зажата
+            if indexOfSelectedCard != nil && !isSelectedCardInHand {
+                let cell = deckCardsCollectionView.cellForItem(at: IndexPath(row: indexOfSelectedCard!, section: 0)) as! DeckCollectionViewCell
+                cell.layer.opacity = 1
+                cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.designeThenChooseDeckCard(0)
+                isCardChoosed.toggle()                      // меняем статус "карта выбрана"
+                gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isPressed.toggle()
+                indexOfSelectedCard = nil
+            }
             
             isSelectedCardInHand = true                 // присваиваем статус карты в руке
             
             indexOfSelectedCard = indexPath.row         //   присваиваем индекс выбранной ячейки
             
+            setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
             
             if let cell = collectionView.cellForItem(at: indexPath) as? DeckCollectionViewCell {
                 //переключение состояния выбора ячейки
@@ -441,9 +493,8 @@ extension DeckViewController: UICollectionViewDataSource {
                 case false:
                     cell.layer.opacity = 0.8
                     cell.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-                    
-                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardUnpressed: false)
-                    
+                    isCardChoosed.toggle()                      // меняем статус "карта выбрана"
+                    self.designeThenChooseDeckCard(0)
                     self.designeThenChooseHandCard(1)
                     
                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfSelectedCard!].isPressed.toggle()
@@ -456,10 +507,8 @@ extension DeckViewController: UICollectionViewDataSource {
                     
                     self.designeThenChooseHandCard(0)
                     
-                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardUnpressed: true)
-                    
                     gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfSelectedCard!].isPressed.toggle()
-                    
+                    isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
                     indexOfSelectedCard = nil
                 }
             }
@@ -468,13 +517,13 @@ extension DeckViewController: UICollectionViewDataSource {
             
             
             
-            let cell = buttomsCollectionView.cellForItem(at: indexPath) as! ButtomCollectionViewCell
+            let cellButtom = buttomsCollectionView.cellForItem(at: indexPath) as! ButtomCollectionViewCell
 
-            animationOfPressedButtom(cell: cell)
+            
             
             if let index = indexOfSelectedCard {  // при несоблюдении этого условия вылезает алерт что нужно выбрать карту
 
-            switch cell.titleView.text {
+            switch cellButtom.titleView.text {
                 
             case CardButtoms.take.rawValue:
 
@@ -484,7 +533,12 @@ extension DeckViewController: UICollectionViewDataSource {
 
                 let cell = deckCardsCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as! DeckCollectionViewCell
 
+                
+                
                 if !isSelectedCardInHand {
+                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
+                    animationOfPressedButtom(cell: cellButtom)
+                    
                         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                             cell.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
                             cell.layer.opacity = 0.2
@@ -500,7 +554,7 @@ extension DeckViewController: UICollectionViewDataSource {
                             takedCard.isPined = false
 
                             gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray.append(takedCard)
-
+                            self.isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
                             self.qtyOfCardsInDeck = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.count
                             self.qtyOfCardsInHand = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray.count
                             deckCollectionView.reloadData()
@@ -514,15 +568,21 @@ extension DeckViewController: UICollectionViewDataSource {
                 let deckCollectionView = deckCardsCollectionView
 
                 let handCollectionView = handCardsCollectionView
+                
+                
 
-                if isSelectedCardInHand == false {
-
+                if !isSelectedCardInHand {
+                    
+                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
+                    animationOfPressedButtom(cell: cellButtom)
+                    
                     let cell = deckCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as! DeckCollectionViewCell
 
                     UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                         cell.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
                         cell.layer.opacity = 0.2
                         self.designeThenChooseDeckCard(0)
+                        self.isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
                     } completion: { _ in
                         cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                         deckCollectionView.deleteItems(at: [IndexPath(row: self.indexOfSelectedCard!, section: 0)])
@@ -533,19 +593,23 @@ extension DeckViewController: UICollectionViewDataSource {
                         gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].dischardCardArray.append(takedCard)
                         
                         self.cardImageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cover )
-                       
+                        
                         deckCollectionView.reloadData()
                         self.indexOfSelectedCard = nil
 
                     }
                 } else {
-
+                    
+                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
+                    animationOfPressedButtom(cell: cellButtom)
+                    
                     let cell = handCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as! DeckCollectionViewCell
 
                     UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
                         cell.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
                         cell.layer.opacity = 0.2
                         self.designeThenChooseHandCard(0)
+                        self.isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
                     } completion: { _ in
                         cell.transform = CGAffineTransform(scaleX: 1, y: 1)
                         handCollectionView.deleteItems(at: [IndexPath(row: self.indexOfSelectedCard!, section: 0)])
@@ -562,17 +626,20 @@ extension DeckViewController: UICollectionViewDataSource {
                 }
                 
             case CardButtoms.flip.rawValue:
-
+                
                 if isSelectedCardInHand == false {
 
-
+                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
+                    animationOfPressedButtom(cell: cellButtom)
+                    
                     let cell = deckCardsCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as! DeckCollectionViewCell
-
+                    self.isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
                     switch gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[index].isFlipedOver {
                     case false:
                         UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut) {
                             cell.transform = CGAffineTransform(scaleX: 0.1, y: 0.9)
                             self.cardImageView.layer.opacity = 0
+                            
                         } completion: { _ in
                             UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseInOut) {
                                 cell.imageView.image = UIImage(named: gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[index].nameOfImage)
@@ -625,11 +692,14 @@ extension DeckViewController: UICollectionViewDataSource {
                 }
 
             case CardButtoms.fix.rawValue:
-
+                
                 if !isSelectedCardInHand {
+                    
+                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
+                    animationOfPressedButtom(cell: cellButtom)
 
                     if let cell = deckCardsCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as? DeckCollectionViewCell {
-
+                        self.isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
                     switch gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray[indexOfSelectedCard!].isPined {
                     case false:
 
@@ -676,8 +746,11 @@ extension DeckViewController: UICollectionViewDataSource {
 
                 } else {
 
+                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
+                    animationOfPressedButtom(cell: cellButtom)
+                    
                     if let cell = handCardsCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as? DeckCollectionViewCell {
-
+                        self.isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
                     switch gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray[indexOfSelectedCard!].isPined {
                     case false:
 
@@ -721,8 +794,42 @@ extension DeckViewController: UICollectionViewDataSource {
                 }
 
             case CardButtoms.bringBack.rawValue:
+                                
+                let deckCollectionView = deckCardsCollectionView
+
+                let handCollectionView = handCardsCollectionView
+
                 
-                print("вернуть карту")
+                
+                if isSelectedCardInHand {
+                    setupButtomsAfterChooseCard(isSelectedCardInHand: isSelectedCardInHand, isCardChoosed: isCardChoosed)
+                    animationOfPressedButtom(cell: cellButtom)
+                        
+                    let cell = handCollectionView.cellForItem(at: IndexPath(row: index, section: 0) ) as! DeckCollectionViewCell
+                    
+                        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
+                            cell.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
+                            cell.layer.opacity = 0.2
+                            self.designeThenChooseDeckCard(0)
+                        } completion: { _ in
+                            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+                            deckCollectionView.deleteItems(at: [IndexPath(row: self.indexOfSelectedCard!, section: 0)])
+
+                            var takedCard = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray.remove(at: index)
+
+                            takedCard.isFlipedOver = false
+                            takedCard.isPressed = false
+                            takedCard.isPined = false
+
+                            gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.append(takedCard)
+                            self.isCardChoosed.toggle()                      // меняем статус "карта не выбрана"
+                            self.qtyOfCardsInDeck = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].cardsArray.count
+                            self.qtyOfCardsInHand = gamesArray[GameViewController.indexOfGame!].decksArray[DeckViewController.indexOfDeck!].handArray.count
+                            deckCollectionView.reloadData()
+                            handCollectionView.reloadData()
+                            self.indexOfSelectedCard = nil
+                        }
+                }
 
             default:
                 break
